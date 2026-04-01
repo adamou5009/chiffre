@@ -1,8 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import os
 import platform
 
-# Selenium timeout
 TIMEOUT = 60
 
 class WebDriverManager:
@@ -13,12 +13,10 @@ class WebDriverManager:
         if self.driver:
             return self.driver
 
-        # Détecte si on est sur Streamlit Cloud
         on_cloud = platform.system() == "Linux" and os.environ.get("STREAMLIT_SERVER") == "true"
 
         if on_cloud:
-            # --- Chrome/Chromium sur Streamlit Cloud ---
-            from selenium.webdriver.chrome.options import Options
+            # Chrome headless pour Streamlit Cloud
             options = Options()
             options.add_argument("--headless=new")
             options.add_argument("--no-sandbox")
@@ -31,7 +29,7 @@ class WebDriverManager:
             self.driver = webdriver.Chrome(options=options)
 
         else:
-            # --- Edge local sur PC ---
+            # Edge local sur Windows
             from selenium.webdriver.edge.options import Options as EdgeOptions
             from selenium.webdriver.edge.service import Service
 
@@ -41,12 +39,10 @@ class WebDriverManager:
             options.add_argument("--disable-notifications")
             options.add_argument("--disable-extensions")
             options.add_argument("--disable-blink-features=AutomationControlled")
-
             if headless:
                 options.add_argument("--headless=new")
                 options.add_argument("--window-size=1920,1080")
 
-            # Chemin vers ton msedgedriver local
             service = Service("C:/Users/COSTA/MonApplication/msedgedriver.exe")
             self.driver = webdriver.Edge(service=service, options=options)
 
