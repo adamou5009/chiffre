@@ -1,5 +1,7 @@
 import streamlit as st
 
+
+st.set_page_config(page_title="📊 Dashboard Chiffres", layout="wide")
 import Programme_de_fidelite as page_fidelite
 import rapport_detaille_cga as page_cga
 import telechargementtopup as page_topup
@@ -13,7 +15,6 @@ import clean_chiffre as page_clean_doublonsom
 import super_chiffre as page_normalisation_chiffre
 import adcalcul_partenaire as page_generation_personnelle
 import fusionMultiFichier as page_fusion_multi_fichier
-st.set_page_config(page_title="📊 Dashboard Chiffres", layout="wide")
 st.sidebar.title("Navigation")
 
 page_selectionnee = st.sidebar.radio(
