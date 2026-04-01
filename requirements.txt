@@ -1,55 +1,51 @@
 # Core packages
-streamlit==1.50.0
-pandas==2.3.3
-numpy==2.3.4
+streamlit==1.45.0
+pandas==2.2.3
+numpy==1.26.4
 
 # Excel handling
 openpyxl==3.1.5
-xlsxwriter==3.2.9
+xlsxwriter==3.2.5
 
 # HTTP / requests
-requests==2.32.5
-urllib3==2.5.0
-certifi==2025.10.5
-charset-normalizer==3.4.4
-idna==3.11
+requests==2.32.3
+urllib3==2.2.3
+certifi==2024.12.14
+charset-normalizer==3.4.1
+idna==3.10
 
 # Authentication / Google APIs
-google-auth==2.41.1
-google-auth-oauthlib==1.2.3
-oauthlib==3.3.1
-rsa==4.9.1
-gspread==6.2.1
+google-auth==2.38.0
+google-auth-oauthlib==1.2.1
+oauthlib==3.2.2
+rsa==4.9
+gspread==6.1.4
 
 # UI / Visualization
 altair==5.5.0
 pydeck==0.9.1
 
 # Selenium
-selenium==4.37.0
+selenium==4.27.1
 
 # Rich / Markdown formatting
-rich>=10.14.0
-markdown-it-py>=2.2.0
-pygments>=2.13.0
+rich>=13.0.0
+markdown-it-py>=3.0.0
+pygments>=2.18.0
 mdurl~=0.1
 
 # Utilities
 python-dateutil==2.9.0.post0
-pytz==2025.2
-packaging==25.0
-click==8.3.0
-h11==0.16.0
-Jinja2==3.1.6
-jsonschema==4.25.1
-jsonschema-specifications==2025.9.1
-MarkupSafe==3.0.3
+pytz==2024.2
+packaging==24.2
+click==8.1.8
+Jinja2==3.1.5
+jsonschema==4.23.0
+MarkupSafe==3.0.2
 six==1.17.0
-tenacity==9.1.2
+tenacity==9.0.0
 toml==0.10.2
-tornado==6.5.2
-trio==0.31.0
-trio-websocket==0.12.2
-typing_extensions==4.15.0
-tzdata==2025.2
+tornado==6.4.2
+typing_extensions==4.12.2
+tzdata==2024.2
 sortedcontainers==2.4.0
