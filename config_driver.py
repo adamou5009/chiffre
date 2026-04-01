@@ -1,7 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+import subprocess
 import os
-import platform
 
 TIMEOUT = 60
 
@@ -9,42 +10,52 @@ class WebDriverManager:
     def __init__(self):
         self.driver = None
 
+    def _get_chrome_options(self, headless=True):
+        options = Options()
+
+        # === Obligatoire pour Streamlit Cloud ===
+        options.add_argument("--headless=new")          # Toujours headless sur cloud
+        options.add_argument("--no-sandbox")            # Requis sur Linux/cloud
+        options.add_argument("--disable-dev-shm-usage") # Évite les crashes mémoire
+        options.add_argument("--disable-gpu")           # Pas de GPU sur cloud
+
+        # === Optionnel mais recommandé ===
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--start-maximized")
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_experimental_option("useAutomationExtension", False)
+
+        return options
+
+    def _find_chromedriver(self):
+        """Trouve chromedriver automatiquement selon l'environnement."""
+        # Streamlit Cloud (Debian/Ubuntu)
+        common_paths = [
+            "/usr/bin/chromedriver",
+            "/usr/local/bin/chromedriver",
+        ]
+        for path in common_paths:
+            if os.path.exists(path):
+                return path
+
+        # Fallback : laisser Selenium le trouver via le PATH
+        return None
+
     def start_driver(self, headless=True):
         if self.driver:
             return self.driver
 
-        on_cloud = "STREAMLIT_SERVER" in os.environ
+        options = self._get_chrome_options(headless)
+        chromedriver_path = self._find_chromedriver()
 
-        if on_cloud:
-            # Chrome headless pour Streamlit Cloud
-            options = Options()
-            options.add_argument("--headless=new")
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--disable-notifications")
-            options.add_argument("--disable-extensions")
-            options.add_argument("--disable-blink-features=AutomationControlled")
-            options.add_argument("--window-size=1920,1080")
-
-            self.driver = webdriver.Chrome(options=options)
-
+        if chromedriver_path:
+            service = Service(executable_path=chromedriver_path)
+            self.driver = webdriver.Chrome(service=service, options=options)
         else:
-            # Edge local sur Windows
-            from selenium.webdriver.edge.options import Options as EdgeOptions
-            from selenium.webdriver.edge.service import Service
-
-            options = EdgeOptions()
-            options.use_chromium = True
-            options.add_argument("--start-maximized")
-            options.add_argument("--disable-notifications")
-            options.add_argument("--disable-extensions")
-            options.add_argument("--disable-blink-features=AutomationControlled")
-            if headless:
-                options.add_argument("--headless=new")
-                options.add_argument("--window-size=1920,1080")
-
-            service = Service("C:/Users/COSTA/MonApplication/msedgedriver.exe")
-            self.driver = webdriver.Edge(service=service, options=options)
+            self.driver = webdriver.Chrome(options=options)
 
         self.driver.implicitly_wait(TIMEOUT)
         return self.driver
