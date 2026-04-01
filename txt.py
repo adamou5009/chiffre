@@ -21,8 +21,8 @@ warnings.filterwarnings('ignore')
 
 # ---------- CONFIG UTILISATEUR ----------
 URL_CONNEXION = "https://serviceplus.canal-plus.com/index.php?action=INTER_PENDING"
-VOTRE_IDENTIFIANT = "Centre_RAyinda"
-VOTRE_MOT_DE_PASSE = "L4E3FrOes4bgNJar"
+VOTRE_IDENTIFIANT = ""
+VOTRE_MOT_DE_PASSE = ""
 
 ZONES_CONFIG = {
     'mfoundi': {'latitude': 3.841309, 'longitude': 11.492995, 'technicien': 'FOKANA STEPHANE'},
