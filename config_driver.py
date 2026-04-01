@@ -13,7 +13,7 @@ class WebDriverManager:
         if self.driver:
             return self.driver
 
-        on_cloud = platform.system() == "Linux" and os.environ.get("STREAMLIT_SERVER") == "true"
+        on_cloud = "STREAMLIT_SERVER" in os.environ
 
         if on_cloud:
             # Chrome headless pour Streamlit Cloud
