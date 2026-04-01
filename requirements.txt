@@ -1,10 +1,10 @@
 # Streamlit et visualisation
-streamlit==1.25.0
+streamlit==1.50.0
 altair==5.5.0
 pydeck==0.10.1
 
 # Data et Excel
-numpy==2.3.4
+numpy==1.26.0
 pandas==2.3.3
 pyarrow==10.0.1
 openpyxl==3.1.8
@@ -25,14 +25,6 @@ charset-normalizer==3.4.4
 
 # Selenium / WebDriver
 selenium==4.37.0
-
-# Automation GUI (optionnel)
-PyAutoGUI==0.9.54
-PyScreeze==1.0.1
-PyMsgBox==2.0.1
-PyGetWindow==0.0.9
-MouseInfo==0.1.3
-pytweening==1.2.0
 
 # Divers
 click==8.3.0
